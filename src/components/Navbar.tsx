@@ -1,12 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useTranslation } from "react-i18next";
 
 const Navbar = () => {
+  const { i18n } = useTranslation();
   const [language, setLanguage] = useState('en');
+  const { t } = useTranslation();
 
-  const handleLanguageChange = (lang: string) => {
-    setLanguage(lang);
-    // Add logic to update the app's language here
+  const handleLanguageChange = (lng: string) => {
+    setLanguage(lng);
+    i18n.changeLanguage(lng);
   };
 
   return (
@@ -18,17 +21,17 @@ const Navbar = () => {
           </div>
         </Link>
         <div className="hidden md:flex space-x-6 text-sm font-medium">
-          <Link to="/" className="text-foreground hover:text-primary transition-colors">Home</Link>
-          <Link to="/" className="text-muted-foreground hover:text-primary transition-colors">Bitcoin</Link>
-          <Link to="/" className="text-muted-foreground hover:text-primary transition-colors">Ethereum</Link>
+          <Link to="/" className="text-foreground hover:text-primary transition-colors">{t('links.home')}</Link>
+          <Link to="/" className="text-muted-foreground hover:text-primary transition-colors">{t('links.bitcoin')}</Link>
+          <Link to="/" className="text-muted-foreground hover:text-primary transition-colors">{t('links.etherium')}</Link>
           <Link to="/" className="text-muted-foreground hover:text-primary transition-colors">DeFi</Link>
           <Link to="/" className="text-muted-foreground hover:text-primary transition-colors">NFTs</Link>
         </div>
         <div className="flex items-center space-x-4">
-          <button className="bg-primary hover:bg-primary/80 text-primary-foreground font-medium rounded-md px-4 py-2 transition-colors text-sm">Subscribe</button>
+          <button className="bg-primary hover:bg-primary/80 text-primary-foreground font-medium rounded-md px-4 py-2 transition-colors text-sm">{t('navbar.subscribe')}</button>
           <div className="relative">
             <select
-              value={language}
+              value={language || 'en'}
               onChange={(e) => handleLanguageChange(e.target.value)}
               className="bg-card border border-border text-sm rounded-md px-3 py-2 focus:outline-none focus:ring-2 focus:ring-primary"
             >
